@@ -1,0 +1,25 @@
+Below represents some stuff how laboratory 6 works:
+
+
+To create and delete databases we use DB.py
+
+For start or finish work for someone we use emplr.by, also it is used for create/delete worker and at the end for 
+create the report. After pressing button "Exit" Terminal will be closed and report done.
+
+For check ID_Card of someone we use issuer.py, here is connected time for workers.
+
+Report.csv the file where is everything written about worker.
+
+Records.db there are located Tables with connection to DB
+
+seedr.py this is generator for random employeers.
+
+
+User_Id could be as the special number which we assign, otherwise "Not Given".
+
+Raspberry Pi is located in issuer.py  (Terminal A)
+
+Connection to localhost with our broker in emplr.py (Terminal B)
+
+The system is working when both Terminals are connected in the same time.
+
