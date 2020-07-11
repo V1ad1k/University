@@ -1,0 +1,88 @@
+CREATE DATABASE school CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+USE school;
+CREATE TABLE IF NOT EXISTS school.departments (
+  name VARCHAR(32) NOT NULL PRIMARY KEY,
+    city VARCHAR(32) NOT NULL DEFAULT 'WROCLAW',
+    address VARCHAR(32) NOT NULL DEFAULT ' ',
+    n VARCHAR(32) NOT NULL DEFAULT '',
+    rating INT NOT NULL DEFAULT 1
+) ENGINE=InnoDB;
+
+
+CREATE TABLE IF NOT EXISTS school.faculties (
+  F_ID VARCHAR(3) NOT NULL,
+  Name VARCHAR(32) NOT NULL,
+  Techer_L VARCHAR(32) NOT NULL DEFAULT ' ',
+  Room VARCHAR(3) NOT NULL DEFAULT 'A1',
+  Number_of_Students INT NOT NULL,
+  Department VARCHAR(32) NOT NULL,
+    PRIMARY KEY(F_ID, Name),
+    FOREIGN KEY(Department) REFERENCES departments(Name) ON DELETE CASCADE
+) ENGINE=InnoDB;
+    
+    
+CREATE TABLE IF NOT EXISTS school.spesialization (
+  profile_name VARCHAR(32) PRIMARY KEY NOT NULL,
+  F_ID VARCHAR(3) NOT NULL,
+    FOREIGN KEY(F_ID) REFERENCES faculties(F_ID) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+
+CREATE TABLE IF NOT EXISTS school.students (
+  StudentID INT NOT NULL UNIQUE,
+  Name VARCHAR(32) NOT NULL,
+  Year INT NOT NULL,
+  AddSubject ENUM ('Yes', 'No') DEFAULT 'No',
+  profile_name VARCHAR(32), 
+  PRIMARY KEY(StudentID, profile_name),
+  FOREIGN KEY(profile_name) REFERENCES spesialization(profile_name)
+) ENGINE = InnoDB;
+
+
+CREATE TABLE IF NOT EXISTS school.teachers (
+  Teach_ID INT PRIMARY KEY NOT NULL,
+  Name VARCHAR(32) NOT NULL,
+  F_ID VARCHAR(3) NOT NULL,
+    FOREIGN KEY(F_ID) REFERENCES faculties(F_ID) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS school.teacher_cons (
+  Teach_ID INT PRIMARY KEY NOT NULL,
+    FOREIGN KEY(Teach_ID) REFERENCES teachers(Teach_ID),
+  Consultation_room VARCHAR(32) NOT NULL,
+  Telephone VARCHAR(32) NOT NULL
+) ENGINE=InnoDB;
+
+
+CREATE TABLE IF NOT EXISTS school.courses (
+  CourseID VARCHAR(4) PRIMARY KEY NOT NULL,
+  Name VARCHAR(32) NOT NULL DEFAULT '',
+  ClassRoomT INT NOT NULL,
+    FOREIGN KEY(ClassRoomT) REFERENCES teachers(Teach_ID),
+  F_ID VARCHAR(3) NOT NULL,
+    FOREIGN KEY(F_ID) REFERENCES faculties(F_ID) ON DELETE CASCADE,
+  Type_of_Pass ENUM('Examination', 'Oral') DEFAULT 'Examination'
+) ENGINE=InnoDB;
+
+
+CREATE TABLE IF NOT EXISTS school.student_takes (
+  Student_ID INT PRIMARY KEY,
+    FOREIGN KEY(Student_ID) REFERENCES students(StudentID),
+  Course VARCHAR(4) NOT NULL,
+    FOREIGN KEY(Course) REFERENCES courses(CourseID) ON DELETE CASCADE,
+  Grade DOUBLE NOT NULL DEFAULT 5.5
+) ENGINE=InnoDB;
+
+
+CREATE TABLE IF NOT EXISTS school.coursebooks (
+  NameB VARCHAR(32) PRIMARY KEY NOT NULL,
+  Author VARCHAR(32) NOT NULL DEFAULT ' ',
+  CourseID VARCHAR(4) NOT NULL,
+    FOREIGN KEY(CourseID) REFERENCES courses(CourseID)
+) ENGINE=InnoDB;
+
+
+CREATE TABLE IF NOT EXISTS school.book_authors (
+  Author VARCHAR(32) PRIMARY KEY NOT NULL,
+  Nationality VARCHAR(16)
+) ENGINE=InnoDB;
