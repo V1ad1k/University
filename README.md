@@ -1,4 +1,4 @@
 # University
-![GitHub Logo](PWR.png)
+![](Desktop/PWR.png)
 *That Folder contains folders with my past subjects.  
 *Some of them include additional stuff to optimize their performance.  
