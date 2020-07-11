@@ -1,4 +1,4 @@
 # University
-![](Desktop/PWR.png)
+![Photo](PWR.png)
 *That Folder contains folders with my past subjects.  
 *Some of them include additional stuff to optimize their performance.  
